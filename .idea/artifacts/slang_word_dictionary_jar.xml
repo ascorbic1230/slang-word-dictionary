@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="slang-word-dictionary:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/slang_word_dictionary_jar</output-path>
+    <root id="archive" name="slang-word-dictionary.jar">
+      <element id="module-output" name="slang-word-dictionary" />
+    </root>
+  </artifact>
+</component>
