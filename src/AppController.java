@@ -1,10 +1,9 @@
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class AppController {
-    private static Dictionary dict;
+    private static Dictionary dict = new Dictionary();
 
     public static int selectMenu(int maxChoice) {
         Scanner scanner = new Scanner(System.in);
@@ -29,7 +28,11 @@ public class AppController {
                 case 1 -> {
                     Utils.clearConsole();
                     String slangWord = AppView.searchSlangWordMeaningView();
-                    // TODO: complete code here
+                    String definition = dict.findDefinitionBySlangWord(slangWord);
+                    if (definition == null)
+                        System.out.println("\n=> Khong tim thay ket qua");
+                    else
+                        System.out.println("\n=> " + slangWord + ": " + definition);
                     Utils.pauseConsole();
                 }
                 case 2 -> {
@@ -61,6 +64,8 @@ public class AppController {
                 }
             }
         } while (choice != 0);
+        dict.storeData();
+        dict.writeSearchHistory();
     }
 
     public static void slangWordManagerMenuController() {

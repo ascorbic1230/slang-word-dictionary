@@ -19,7 +19,11 @@ public class Dictionary {
         loadData();
     }
 
-    void loadData() {
+    public String findDefinitionBySlangWord(String slangWord) {
+        return data.get(slangWord);
+    }
+
+    public void loadData() {
         File dataFile = new File(databaseFileName);
         if (dataFile.isFile())
             readDatabase();
@@ -28,7 +32,7 @@ public class Dictionary {
         readSearchHistory();
     }
 
-    void storeData() {
+    public void storeData() {
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(databaseFileName));
 
@@ -55,7 +59,7 @@ public class Dictionary {
         }
     }
 
-    void readDatabase() {
+    public void readDatabase() {
         try {
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(databaseFileName));
 
@@ -81,7 +85,7 @@ public class Dictionary {
         }
     }
 
-    void readOriginalDatabase() {
+    public void readOriginalDatabase() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(originalDatabaseFileName));
 
@@ -90,7 +94,9 @@ public class Dictionary {
             Path path = Paths.get(originalDatabaseFileName);
             long size = Files.lines(path).count();
 
-            for (int i = 0; i < size; i++) {
+            br.readLine();
+
+            for (int i = 0; i < size - 1; i++) {
                 String line = br.readLine();
                 String[] parts = line.split(SPLIT_CHARACTER);
 
@@ -103,8 +109,12 @@ public class Dictionary {
         }
     }
 
-    void readSearchHistory() {
+    public void readSearchHistory() {
         try {
+            File file = new File(searchHistoryFileName);
+            if (!file.isFile())
+                return;
+
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(searchHistoryFileName));
             searchHistory.clear();
             int size = bis.read();
@@ -123,7 +133,7 @@ public class Dictionary {
         }
     }
 
-    void writeSearchHistory() {
+    public void writeSearchHistory() {
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(searchHistoryFileName));
 
