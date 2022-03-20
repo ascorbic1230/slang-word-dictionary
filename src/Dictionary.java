@@ -1,10 +1,8 @@
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Set;
@@ -41,6 +39,17 @@ public class Dictionary {
 
     public void addSearchHistory(String slangWord, String definition) {
         searchHistory.put(slangWord, definition);
+    }
+
+    public void clearSearchHistory() {
+        searchHistory.clear();
+    }
+
+    public boolean addNewSlangWord(String slangWord, String definition) {
+        if (data.get(slangWord) != null)
+            return false;
+        data.put(slangWord, definition);
+        return true;
     }
 
     public void loadData() {
@@ -194,15 +203,7 @@ public class Dictionary {
         }
     }
 
-    public HashMap<String, String> getData() {
-        return data;
-    }
-
     public HashMap<String, String> getSearchHistory() {
         return searchHistory;
-    }
-
-    public void clearSearchHistory() {
-        searchHistory.clear();
     }
 }

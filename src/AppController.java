@@ -97,8 +97,12 @@ public class AppController {
                 case 1 -> {
                     Utils.clearConsole();
                     ArrayList<String> res = AppView.addSlangWordView();
-                    // TODO: complete code here
+                    if (dict.addNewSlangWord(res.get(0), res.get(1)))
+                        System.out.println("\n=> Them slang word moi thanh cong");
+                    else
+                        System.out.println("\n=> Them slang word moi khong thanh cong");
                     Utils.pauseConsole();
+                    choice = 0;
                 }
                 case 2 -> {
                     Utils.clearConsole();
