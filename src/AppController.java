@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AppController {
     private static Dictionary dict = new Dictionary();
@@ -28,7 +29,7 @@ public class AppController {
                 case 1 -> {
                     Utils.clearConsole();
                     String slangWord = AppView.searchSlangWordMeaningView();
-                    String definition = dict.findDefinitionBySlangWord(slangWord);
+                    String definition = dict.findDefinitionOfSlangWord(slangWord);
                     if (definition == null)
                         System.out.println("\n=> Khong tim thay ket qua");
                     else
@@ -37,8 +38,18 @@ public class AppController {
                 }
                 case 2 -> {
                     Utils.clearConsole();
-                    String keyWord = AppView.searchSlangWordView();
-                    // TODO: complete code here
+                    String keyword = AppView.searchSlangWordView();
+                    HashMap<String, String> slangWords = dict.findSlangWordsByKeyword(keyword);
+                    if (slangWords.size() == 0)
+                        System.out.println("\n=> Khong tim thay ket qua");
+                    else {
+                        System.out.println("\n=> Ket qua tim kiem:");
+                        Set<String> keySet = slangWords.keySet();
+                        int i = 1;
+                        for (String slangWord : keySet) {
+                            System.out.println("\n" + i++ + ". " + slangWord + ": " + slangWords.get(slangWord));
+                        }
+                    }
                     Utils.pauseConsole();
                 }
                 case 3 -> {
