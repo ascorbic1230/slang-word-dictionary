@@ -53,9 +53,17 @@ public class AppView {
         return scanner.nextLine();
     }
 
-    public static void searchHistoryView(ArrayList<String> searchHistory) {
+    public static void searchHistoryView(HashMap<String, String> searchHistory) {
         System.out.println("====== Lich su tim kiem ======\n");
-
+        if (searchHistory.size() == 0) {
+            System.out.println("=> Lich su tim kiem trong");
+            return;
+        }
+        Set<String> keySet = searchHistory.keySet();
+        int i = 0;
+        for (String slangWord : keySet) {
+            System.out.println("" + ++i + ". " + slangWord + ": " + searchHistory.get(slangWord));
+        }
     }
 
     public static ArrayList<String> addSlangWordView() {

@@ -32,8 +32,10 @@ public class AppController {
                     String definition = dict.findDefinitionOfSlangWord(slangWord);
                     if (definition == null)
                         System.out.println("\n=> Khong tim thay ket qua");
-                    else
+                    else {
+                        dict.addSearchHistory(slangWord, definition);
                         System.out.println("\n=> " + slangWord + ": " + definition);
+                    }
                     Utils.pauseConsole();
                 }
                 case 2 -> {
@@ -47,7 +49,9 @@ public class AppController {
                         Set<String> keySet = slangWords.keySet();
                         int i = 1;
                         for (String slangWord : keySet) {
-                            System.out.println("\n" + i++ + ". " + slangWord + ": " + slangWords.get(slangWord));
+                            String definition = slangWords.get(slangWord);
+                            dict.addSearchHistory(slangWord, definition);
+                            System.out.println("\n" + i++ + ". " + slangWord + ": " + definition);
                         }
                     }
                     Utils.pauseConsole();
@@ -55,8 +59,12 @@ public class AppController {
                 case 3 -> {
                     Utils.clearConsole();
                     AppView.searchHistoryView(dict.getSearchHistory());
-                    // TODO: complete code here
-                    Utils.pauseConsole();
+                    System.out.println("\nTuy chon");
+                    System.out.println("1. Xoa lich su tim kiem");
+                    System.out.println("2. Tro lai");
+                    int subChoice = selectMenu(2);
+                    if (subChoice == 1)
+                        dict.clearSearchHistory();
                 }
                 case 4 -> {
                     slangWordManagerMenuController();

@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Dictionary {
     private final HashMap<String, String> data = new HashMap<>();
-    private final ArrayList<String> searchHistory = new ArrayList<>();
+    private final HashMap<String, String> searchHistory = new HashMap<>();
 
     private final String originalDatabaseFileName = "slang.txt";
     private final String databaseFileName = "data.bin";
@@ -37,6 +37,10 @@ public class Dictionary {
         }
 
         return slangWords;
+    }
+
+    public void addSearchHistory(String slangWord, String definition) {
+        searchHistory.put(slangWord, definition);
     }
 
     public void loadData() {
@@ -137,14 +141,23 @@ public class Dictionary {
 
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(searchHistoryFileName));
             searchHistory.clear();
-            int size = bis.read();
+
+            byte[] bytes = new byte[4];
+            bis.read(bytes);
+            int size = ByteBuffer.wrap(bytes).getInt();
+
             for (int i = 0; i < size; i++) {
                 int keywordSize = bis.read();
                 byte[] keywordBytesArray = new byte[keywordSize];
                 bis.read(keywordBytesArray);
                 String keyword = new String(keywordBytesArray);
 
-                searchHistory.add(keyword);
+                int definitionSize = bis.read();
+                byte[] definitionBytesArray = new byte[definitionSize];
+                bis.read(definitionBytesArray);
+                String definition = new String(definitionBytesArray);
+
+                searchHistory.put(keyword, definition);
             }
 
             bis.close();
@@ -158,13 +171,21 @@ public class Dictionary {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(searchHistoryFileName));
 
             int size = searchHistory.size();
-            bos.write(size);
+            byte[] bytes = ByteBuffer.allocate(4).putInt(size).array();
+            bos.write(bytes);
 
-            for (String keyword : searchHistory) {
-                int keywordSize = keyword.length();
-                bos.write(keywordSize);
-                byte[] keywordBytesArray = keyword.getBytes();
-                bos.write(keywordBytesArray);
+            Set<String> keySet = searchHistory.keySet();
+            for (String slangWord : keySet) {
+                int slangWordSize = slangWord.length();
+                bos.write(slangWordSize);
+                byte[] slangWordBytesArray = slangWord.getBytes();
+                bos.write(slangWordBytesArray);
+
+                String definition = data.get(slangWord);
+                int definitionSize = definition.length();
+                bos.write(definitionSize);
+                byte[] d = definition.getBytes();
+                bos.write(d);
             }
 
             bos.close();
@@ -177,7 +198,11 @@ public class Dictionary {
         return data;
     }
 
-    public ArrayList<String> getSearchHistory() {
+    public HashMap<String, String> getSearchHistory() {
         return searchHistory;
+    }
+
+    public void clearSearchHistory() {
+        searchHistory.clear();
     }
 }
