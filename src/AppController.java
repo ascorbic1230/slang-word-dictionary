@@ -19,6 +19,14 @@ public class AppController {
         return choice;
     }
 
+    public static boolean deleteConfirmation(String statement) {
+        System.out.println("\n" + statement);
+        System.out.println("1. Co");
+        System.out.println("2. Khong");
+        int choice = selectMenu(2);
+        return choice == 1;
+    }
+
     public static void mainMenuController() {
         int choice = -1;
         do {
@@ -63,19 +71,20 @@ public class AppController {
                     System.out.println("1. Xoa lich su tim kiem");
                     System.out.println("2. Tro lai");
                     int subChoice = selectMenu(2);
-                    if (subChoice == 1)
-                        dict.clearSearchHistory();
+                    if (subChoice == 1) {
+                        if (deleteConfirmation("Ban co chac chan muon xoa hay khong?"))
+                            dict.clearSearchHistory();
+                    }
                 }
                 case 4 -> {
                     slangWordManagerMenuController();
                 }
                 case 5 -> {
                     Utils.clearConsole();
-                    // TODO: clear demo and complete code here
-                    HashMap<String, String> randomSlangWord = new HashMap<>();
-                    randomSlangWord.put("+_+", "Dead man");
-                    AppView.randomSlangWordView(randomSlangWord);
-
+                    String slangWord = dict.randomSlangWord();
+                    String definition = dict.findDefinitionOfSlangWord(slangWord);
+                    dict.addSearchHistory(slangWord, definition);
+                    AppView.randomSlangWordView(slangWord, definition);
                     Utils.pauseConsole();
                 }
                 case 6 -> {
@@ -129,11 +138,7 @@ public class AppController {
                     if (dict.isSlangWordExist(slangWord)) {
                         String definition = dict.findDefinitionOfSlangWord(slangWord);
                         System.out.println("\n" + slangWord + ": " + definition);
-                        System.out.println("\nBan co chac chan muon xoa khong?");
-                        System.out.println("1. Co");
-                        System.out.println("2. Khong");
-                        int subChoice = selectMenu(2);
-                        if (subChoice == 1) {
+                        if (deleteConfirmation("Ban co chac chan muon xoa hay khong?")) {
                             dict.deleteSlangWord(slangWord);
                             System.out.println("\n=> Xoa slang word thanh cong");
                         }

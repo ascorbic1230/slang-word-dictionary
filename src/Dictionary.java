@@ -3,9 +3,7 @@ import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 public class Dictionary {
     private final HashMap<String, String> data = new HashMap<>();
@@ -60,8 +58,14 @@ public class Dictionary {
         return true;
     }
 
-    public String deleteSlangWord(String slangWord) {
-        return data.remove(slangWord.toUpperCase());
+    public void deleteSlangWord(String slangWord) {
+        data.remove(slangWord.toUpperCase());
+    }
+
+    public String randomSlangWord() {
+        ArrayList<String> slangWords = new ArrayList<>(data.keySet());
+        Random random = new Random();
+        return slangWords.get(random.nextInt(slangWords.size()));
     }
 
     public boolean isSlangWordExist(String slangWord) {

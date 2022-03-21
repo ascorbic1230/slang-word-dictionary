@@ -97,20 +97,13 @@ public class AppView {
     }
 
     public static boolean resetSlangWordListView() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("====== Reset danh sach slang word ======\n");
-        System.out.println("Ban co chac chan muon khoi phuc danh sach slang word goc?");
-        System.out.println("1. Co");
-        System.out.println("2. Khong");
-        int choice = AppController.selectMenu(2);
-        return choice == 1;
+        System.out.println("====== Reset danh sach slang word ======");
+        return AppController.deleteConfirmation("Ban co chac chan muon khoi phuc danh sach slang word goc?");
     }
 
-    public static void randomSlangWordView(HashMap<String, String> randomSlangWord) {
+    public static void randomSlangWordView(String slangWord, String definition) {
         System.out.println("====== Slang word ngau nhien ======\n");
-        for (Map.Entry<String, String> entry : randomSlangWord.entrySet())
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+        System.out.println(slangWord + ": " + definition);
     }
-
 
 }
