@@ -99,14 +99,11 @@ public class AppView {
     public static boolean resetSlangWordListView() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("====== Reset danh sach slang word ======\n");
-        System.out.println("Ban co chac chan muon khoi phuc danh sach slang word goc? yes/no");
-        while (true) {
-            String choice = scanner.next().toUpperCase();
-            if (choice.equals("YES"))
-                return true;
-            else if (choice.equals("NO"))
-                return false;
-        }
+        System.out.println("Ban co chac chan muon khoi phuc danh sach slang word goc?");
+        System.out.println("1. Co");
+        System.out.println("2. Khong");
+        int choice = AppController.selectMenu(2);
+        return choice == 1;
     }
 
     public static void randomSlangWordView(HashMap<String, String> randomSlangWord) {

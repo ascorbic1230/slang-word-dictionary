@@ -54,9 +54,9 @@ public class Dictionary {
     }
 
     public boolean updateSlangWord(String slangWord, String definition) {
-        if (data.get(slangWord) == null)
+        if (data.get(slangWord.toUpperCase()) == null)
             return false;
-        data.put(slangWord, definition);
+        data.put(slangWord.toUpperCase(), definition);
         return true;
     }
 
@@ -68,6 +68,10 @@ public class Dictionary {
         return data.get(slangWord.toUpperCase()) != null;
     }
 
+    public void resetDatabase() {
+        readOriginalDatabase();
+        storeData();
+    }
 
     public void loadData() {
         File dataFile = new File(databaseFileName);

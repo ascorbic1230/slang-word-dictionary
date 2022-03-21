@@ -147,10 +147,15 @@ public class AppController {
                 }
                 case 4 -> {
                     Utils.clearConsole();
-                    boolean res = AppView.resetSlangWordListView();
-                    // TODO: complete code here
-
+                    boolean bool = AppView.resetSlangWordListView();
+                    if (bool) {
+                        dict.resetDatabase();
+                        System.out.println("\n=> Reset danh sach slang words goc thanh cong");
+                    }
+                    else
+                        System.out.println("\n=> Reset danh sach slang words goc khong thanh cong");
                     Utils.pauseConsole();
+                    choice = 0;
                 }
             }
         } while (choice != 0);
