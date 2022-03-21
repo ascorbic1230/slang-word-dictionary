@@ -71,7 +71,7 @@ public class AppView {
         Scanner scanner = new Scanner(System.in);
         System.out.println("====== Them slang word moi =====\n");
         System.out.print("Slang word: ");
-        String slangWord = scanner.nextLine();
+        String slangWord = scanner.nextLine().toUpperCase();
         res.add(slangWord);
         System.out.print("Dinh nghia: ");
         String definition = scanner.nextLine();

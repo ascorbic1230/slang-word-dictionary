@@ -21,7 +21,7 @@ public class Dictionary {
     }
 
     public String findDefinitionOfSlangWord(String slangWord) {
-        return data.get(slangWord);
+        return data.get(slangWord.toUpperCase());
     }
 
     public HashMap<String, String> findSlangWordsByKeyword(String keyword) {
@@ -46,9 +46,9 @@ public class Dictionary {
     }
 
     public boolean addNewSlangWord(String slangWord, String definition) {
-        if (data.get(slangWord) != null)
+        if (data.get(slangWord.toUpperCase()) != null)
             return false;
-        data.put(slangWord, definition);
+        data.put(slangWord.toUpperCase(), definition);
         return true;
     }
 
@@ -57,6 +57,14 @@ public class Dictionary {
             return false;
         data.put(slangWord, definition);
         return true;
+    }
+
+    public String deleteSlangWord(String slangWord) {
+        return data.remove(slangWord.toUpperCase());
+    }
+
+    public boolean isSlangWordExist(String slangWord) {
+        return data.get(slangWord.toUpperCase()) != null;
     }
 
 

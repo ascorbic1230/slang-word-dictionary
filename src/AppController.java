@@ -119,15 +119,26 @@ public class AppController {
                             System.out.println("\n=> Sua slang word khong thanh cong");
                     }
                     else
-                        System.out.println("\n=> Khong ton tai slang word trong co so du lieu");
+                        System.out.println("\n=> Slang word khong ton tai trong co so du lieu");
                     Utils.pauseConsole();
                     choice = 0;
                 }
                 case 3 -> {
                     Utils.clearConsole();
                     String slangWord = AppView.deleteSlangWordView();
-                    // TODO: complete code here
+                    if (dict.isSlangWordExist(slangWord)) {
+                        String definition = dict.deleteSlangWord(slangWord);
+                        if (definition != null) {
+                            System.out.println("\n" + slangWord + ": " + definition);
+                            System.out.println("\n=> Xoa slang word thanh cong");
+                        }
+                        else
+                            System.out.println("\n=> Xoa slang word khong than cong");
+                    }
+                    else
+                        System.out.println("\n=> Slang word khong ton tai trong co so du lieu");
                     Utils.pauseConsole();
+                    choice = 0;
                 }
                 case 4 -> {
                     Utils.clearConsole();
