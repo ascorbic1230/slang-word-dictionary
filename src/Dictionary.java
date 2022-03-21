@@ -38,7 +38,8 @@ public class Dictionary {
     }
 
     public void addSearchHistory(String slangWord, String definition) {
-        searchHistory.put(slangWord, definition);
+        if (definition != null)
+            searchHistory.put(slangWord, definition);
     }
 
     public void clearSearchHistory() {
@@ -206,7 +207,7 @@ public class Dictionary {
                 byte[] slangWordBytesArray = slangWord.getBytes();
                 bos.write(slangWordBytesArray);
 
-                String definition = data.get(slangWord);
+                String definition = searchHistory.get(slangWord);
                 int definitionSize = definition.length();
                 bos.write(definitionSize);
                 byte[] d = definition.getBytes();

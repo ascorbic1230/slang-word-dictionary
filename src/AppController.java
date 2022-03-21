@@ -127,13 +127,18 @@ public class AppController {
                     Utils.clearConsole();
                     String slangWord = AppView.deleteSlangWordView();
                     if (dict.isSlangWordExist(slangWord)) {
-                        String definition = dict.deleteSlangWord(slangWord);
-                        if (definition != null) {
-                            System.out.println("\n" + slangWord + ": " + definition);
+                        String definition = dict.findDefinitionOfSlangWord(slangWord);
+                        System.out.println("\n" + slangWord + ": " + definition);
+                        System.out.println("\nBan co chac chan muon xoa khong?");
+                        System.out.println("1. Co");
+                        System.out.println("2. Khong");
+                        int subChoice = selectMenu(2);
+                        if (subChoice == 1) {
+                            dict.deleteSlangWord(slangWord);
                             System.out.println("\n=> Xoa slang word thanh cong");
                         }
                         else
-                            System.out.println("\n=> Xoa slang word khong than cong");
+                            System.out.println("\n=> Xoa slang word khong thanh cong");
                     }
                     else
                         System.out.println("\n=> Slang word khong ton tai trong co so du lieu");
