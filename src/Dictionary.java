@@ -52,6 +52,14 @@ public class Dictionary {
         return true;
     }
 
+    public boolean updateSlangWord(String slangWord, String definition) {
+        if (data.get(slangWord) == null)
+            return false;
+        data.put(slangWord, definition);
+        return true;
+    }
+
+
     public void loadData() {
         File dataFile = new File(databaseFileName);
         if (dataFile.isFile())

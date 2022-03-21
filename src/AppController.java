@@ -28,7 +28,7 @@ public class AppController {
             switch (choice) {
                 case 1 -> {
                     Utils.clearConsole();
-                    String slangWord = AppView.searchSlangWordMeaningView();
+                    String slangWord = AppView.searchSlangWordMeaningView().toUpperCase();
                     String definition = dict.findDefinitionOfSlangWord(slangWord);
                     if (definition == null)
                         System.out.println("\n=> Khong tim thay ket qua");
@@ -107,9 +107,21 @@ public class AppController {
                 case 2 -> {
                     Utils.clearConsole();
                     String slangWord = AppView.updateSlangWordView();
-                    // TODO: complete code here
-
+                    String definition = dict.findDefinitionOfSlangWord(slangWord);
+                    if (definition != null) {
+                        System.out.println(slangWord + ": " + definition);
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.print("\nDinh nghia moi: ");
+                        String newDefinition = scanner.nextLine();
+                        if (dict.updateSlangWord(slangWord, newDefinition))
+                            System.out.println("\n=> Sua slang word thanh cong");
+                        else
+                            System.out.println("\n=> Sua slang word khong thanh cong");
+                    }
+                    else
+                        System.out.println("\n=> Khong ton tai slang word trong co so du lieu");
                     Utils.pauseConsole();
+                    choice = 0;
                 }
                 case 3 -> {
                     Utils.clearConsole();
