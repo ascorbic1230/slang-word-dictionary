@@ -68,6 +68,24 @@ public class Dictionary {
         return slangWords.get(random.nextInt(slangWords.size()));
     }
 
+    public HashMap<String, String> random4SlangWords() {
+        HashMap<String, String> res = new HashMap<>();
+        while (res.size() < 4) {
+            String slangWord = randomSlangWord();
+            String definition = data.get(slangWord);
+            boolean flag = false;
+            Set<String> keySet = res.keySet();
+            for (String key : keySet) {
+                if (definition.equals(res.get(key)))
+                    flag = true;
+            }
+            if (flag)
+                continue;
+            res.put(slangWord, definition);
+        }
+        return res;
+    }
+
     public boolean isSlangWordExist(String slangWord) {
         return data.get(slangWord.toUpperCase()) != null;
     }

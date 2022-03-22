@@ -106,4 +106,21 @@ public class AppView {
         System.out.println(slangWord + ": " + definition);
     }
 
+    public static void slangWordQuiz1View() {
+        System.out.println("======= Slang word quiz ======\n");
+        System.out.println("Tim nghia cua slang word sau:");
+    }
+
+    public static void slangWordQuiz2View() {
+        System.out.println("======= Slang word quiz ======\n");
+        System.out.println("Tim slang word co nghia la:");
+    }
+
+    public static void answersView(ArrayList<String> ans) {
+        System.out.println("\nA. " + ans.get(0));
+        System.out.println("B. " + ans.get(1));
+        System.out.println("C. " + ans.get(2));
+        System.out.println("D. " + ans.get(3));
+    }
+
 }

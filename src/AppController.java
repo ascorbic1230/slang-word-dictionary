@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class AppController {
     private static Dictionary dict = new Dictionary();
@@ -17,6 +14,18 @@ public class AppController {
             break;
         }
         return choice;
+    }
+
+    public static int selectAnswer() {
+        String[] ans = { "A", "B", "C", "D"};
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nDap an cua ban la: ");
+        while (true) {
+            String input = scanner.nextLine().toUpperCase();
+            for (int i = 0; i < ans.length; i++)
+                if (input.equals(ans[i]))
+                    return i;
+        }
     }
 
     public static boolean deleteConfirmation(String statement) {
@@ -168,6 +177,7 @@ public class AppController {
 
     public static void slangWordQuizMenuController() {
         int choice = -1;
+        HashMap<String, String> randomSlangWords = dict.random4SlangWords();
         do {
             Utils.clearConsole();
             int maxChoice = AppView.slangWordQuizMenuView();
@@ -175,13 +185,57 @@ public class AppController {
             switch (choice) {
                 case 1 -> {
                     Utils.clearConsole();
-                    System.out.println("Hello World 1");
+                    // Hien thi giao dien
+                    AppView.slangWordQuiz1View();
+                    // Khoi tao bien
+                    ArrayList<String> answers = new ArrayList<>();
+                    Random random = new Random();
+                    int randomNum = random.nextInt(4);
+                    ArrayList<String> slangWords = new ArrayList<>(randomSlangWords.keySet());
+                    String question = slangWords.get(randomNum);
+                    for (int i = 0; i < 4; i++) {
+                        answers.add(randomSlangWords.get(slangWords.get(i)));
+                    }
+                    // In cau hoi
+                    System.out.println("\t" + question);
+                    // In cau tra loi
+                    AppView.answersView(answers);
+                    // Doc cau tra loi
+                    int ans = selectAnswer();
+                    // Kiem tra cau tra loi
+                    if (ans == randomNum)
+                        System.out.println("\n=> Chuc mung ban da tra loi chinh xac");
+                    else {
+                        System.out.println("\n=> Cau tra loi cua ban chua chinh xac");
+                        System.out.println("\nDap an cua cau hoi la " + question + ": " + randomSlangWords.get(question));
+                    }
                     Utils.pauseConsole();
+                    choice = 0;
                 }
                 case 2 -> {
                     Utils.clearConsole();
-                    System.out.println("Hello World 2");
+                    // Hien thi giao dien
+                    AppView.slangWordQuiz2View();
+                    // Khoi tao bien
+                    Random random = new Random();
+                    int randomNum = random.nextInt(4);
+                    ArrayList<String> slangWords = new ArrayList<>(randomSlangWords.keySet()); // Danh sach slang words cung la danh sach dap an
+                    String question = randomSlangWords.get(slangWords.get(randomNum));
+                    // In cau hoi
+                    System.out.println("\t" + question);
+                    // In cau tra loi
+                    AppView.answersView(slangWords);
+                    // Doc cau tra loi
+                    int ans = selectAnswer();
+                    // Kiem tra cau tra loi
+                    if (ans == randomNum)
+                        System.out.println("\n=> Chuc mung ban da tra loi chinh xac");
+                    else {
+                        System.out.println("\n=> Cau tra loi cua ban chua chinh xac");
+                        System.out.println("\nDap an cua cau hoi la " + slangWords.get(randomNum) + ": " + question);
+                    }
                     Utils.pauseConsole();
+                    choice = 0;
                 }
             }
         } while(choice != 0);
