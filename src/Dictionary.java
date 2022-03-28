@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -114,15 +115,15 @@ public class Dictionary {
 
             Set<String> slangWords = data.keySet();
             for (String slangWord : slangWords) {
-                int slangWordSize = slangWord.length();
+                byte[] sw = slangWord.getBytes(StandardCharsets.UTF_8);
+                int slangWordSize = sw.length;
                 bos.write(slangWordSize);
-                byte[] sw = slangWord.getBytes();
                 bos.write(sw);
 
                 String definition = data.get(slangWord);
-                int definitionSize = definition.length();
+                byte[] d = definition.getBytes(StandardCharsets.UTF_8);
+                int definitionSize = d.length;
                 bos.write(definitionSize);
-                byte[] d = definition.getBytes();
                 bos.write(d);
             }
 
@@ -151,7 +152,6 @@ public class Dictionary {
                 byte[] definitionBytesArray = new byte[definitionSize];
                 bis.read(definitionBytesArray);
                 String definition = new String(definitionBytesArray);
-
                 data.put(slangWord, definition);
             }
 
@@ -228,15 +228,15 @@ public class Dictionary {
 
             Set<String> keySet = searchHistory.keySet();
             for (String slangWord : keySet) {
-                int slangWordSize = slangWord.length();
+                byte[] slangWordBytesArray = slangWord.getBytes(StandardCharsets.UTF_8);
+                int slangWordSize = slangWordBytesArray.length;
                 bos.write(slangWordSize);
-                byte[] slangWordBytesArray = slangWord.getBytes();
                 bos.write(slangWordBytesArray);
 
                 String definition = searchHistory.get(slangWord);
-                int definitionSize = definition.length();
+                byte[] d = definition.getBytes(StandardCharsets.UTF_8);
+                int definitionSize = d.length;
                 bos.write(definitionSize);
-                byte[] d = definition.getBytes();
                 bos.write(d);
             }
 
