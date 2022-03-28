@@ -903,7 +903,7 @@ BOLO`Be On The Lookout
 BOLSHY`Bolshevik| communist| Argumentative
 BOLTOP`Better On Lips Than On Paper
 BOM`Bro| dude| friend
-BOMB`Something really bad
+BOMB`Something really bad| Something really good
 BOMBSHELL`Very attractive woman
 BOMM`BOOMM
 BONE UP`Learn about| revise
@@ -4110,6 +4110,8 @@ MCL`Much Clown Love
 MCM`Man Crush Monday
 MCP`Male Chauvanist Pig
 MCR`My Chemical Romance (band)
+MD`Doctor of Medicine| Managing Director
+ MCR`My Chemical Romance (band)
 MD`Doctor of Medicine| Managing Director
 MDA`Drug related to Ecstasy (MDMA)
 MDF`Medium Density Fiberboard

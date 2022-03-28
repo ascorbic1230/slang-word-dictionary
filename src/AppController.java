@@ -115,8 +115,10 @@ public class AppController {
                 case 1 -> {
                     Utils.clearConsole();
                     ArrayList<String> res = AppView.addSlangWordView();
-                    if (dict.addNewSlangWord(res.get(0), res.get(1)))
+                    if (dict.addNewSlangWord(res.get(0), res.get(1))) {
                         System.out.println("\n=> Them slang word moi thanh cong");
+                        dict.storeData();
+                    }
                     else
                         System.out.println("\n=> Them slang word moi khong thanh cong");
                     Utils.pauseConsole();
@@ -131,8 +133,10 @@ public class AppController {
                         Scanner scanner = new Scanner(System.in);
                         System.out.print("\nDinh nghia moi: ");
                         String newDefinition = scanner.nextLine();
-                        if (dict.updateSlangWord(slangWord, newDefinition))
+                        if (dict.updateSlangWord(slangWord, newDefinition)) {
                             System.out.println("\n=> Sua slang word thanh cong");
+                            dict.storeData();
+                        }
                         else
                             System.out.println("\n=> Sua slang word khong thanh cong");
                     }
@@ -150,6 +154,7 @@ public class AppController {
                         if (deleteConfirmation("Ban co chac chan muon xoa hay khong?")) {
                             dict.deleteSlangWord(slangWord);
                             System.out.println("\n=> Xoa slang word thanh cong");
+                            dict.storeData();
                         }
                         else
                             System.out.println("\n=> Xoa slang word khong thanh cong");
@@ -165,6 +170,7 @@ public class AppController {
                     if (bool) {
                         dict.resetDatabase();
                         System.out.println("\n=> Reset danh sach slang words goc thanh cong");
+                        dict.storeData();
                     }
                     else
                         System.out.println("\n=> Reset danh sach slang words goc khong thanh cong");
